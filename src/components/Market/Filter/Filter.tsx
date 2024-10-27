@@ -1,7 +1,23 @@
-import { Input, Text, Flex, Box, Button } from '@mantine/core'
+import { useState } from 'react'
+import { Input, Text, Flex, Box, Button, CloseButton } from '@mantine/core'
 import classes from './Filter.module.css'
 
-export const Filter = () => {
+export const Filter = ({
+	setFilter,
+}: {
+	setFilter: React.Dispatch<React.SetStateAction<string>>
+}) => {
+	const [value, setValue] = useState('')
+
+	const handleClear = () => {
+		setValue('')
+		setFilter('')
+	}
+
+	const handleFilter = () => {
+		setFilter(value)
+	}
+
 	return (
 		<Flex className={classes.filter}>
 			<Box>
@@ -9,9 +25,25 @@ export const Filter = () => {
 					Поиск
 				</Text>
 				<Input
+					value={value}
+					onChange={(e) => setValue(e.target.value)}
 					radius={12}
-					h={42}
+					py={6}
 					placeholder='Введите название отеля, страны, курорта, рекламника'
+					rightSectionPointerEvents='all'
+					rightSection={
+						<CloseButton
+							aria-label='Очистить поиск'
+							onClick={handleClear}
+							style={{ display: value ? undefined : 'none' }}
+						/>
+					}
+					styles={{
+						input: {
+							height: '42px',
+							padding: '0 12px',
+						},
+					}}
 				/>
 			</Box>
 			<Box className={classes.buttons}>
@@ -22,6 +54,7 @@ export const Filter = () => {
 					variant='outline'
 					bd='3px solid var(--primary-yellow)'
 					color='black'
+					onClick={handleFilter}
 				>
 					Поиск
 				</Button>

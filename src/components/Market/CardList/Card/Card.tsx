@@ -1,7 +1,7 @@
-import { useState, useContext } from 'react'
-import { Flex, Text, Button, Image } from '@mantine/core'
+import { useState, useContext, useEffect } from 'react'
+import { Flex, Text, Button, Image, Box } from '@mantine/core'
 import { IconCheck } from '@tabler/icons-react'
-import type { ICard } from '@/types'
+import type { CartList, ICard } from '@/types'
 import { Rating } from './Rating'
 import { Place } from './Place'
 import { Author } from './Author'
@@ -20,13 +20,22 @@ export const Card = ({ card }: { card: ICard }) => {
 	const [liked, setLiked] = useState(false)
 	const [isInCart, setIsInCart] = useState(Boolean(localStorage.getItem(id)))
 
+	useEffect(() => {
+		setIsInCart(Boolean(localStorage.getItem(id)))
+	}, [context.cartItems, id])
+
 	const handleAddToCart = () => {
 		if (isInCart) {
 			setIsInCart(false)
 			localStorage.removeItem(id)
 		} else {
 			setIsInCart(true)
-			localStorage.setItem(id, card.placeName)
+			const item: CartList = {
+				id,
+				placeName: card.placeName,
+				price: card.price,
+			}
+			localStorage.setItem(id, JSON.stringify(item))
 		}
 		context.setCartItems(localStorage.length)
 	}
@@ -44,7 +53,9 @@ export const Card = ({ card }: { card: ICard }) => {
 			<CardLabel type={card.type} />
 			<Like liked={liked} handleLike={handleLike} />
 
-			<Image h={200} radius={12} src={card.placePicture} />
+			<Box h={200}>
+				<Image h={200} radius={12} src={card.placePicture} />
+			</Box>
 			<Flex h='100%' gap={14} direction='column' justify='space-between'>
 				<Flex gap={4} direction='column'>
 					<Rating

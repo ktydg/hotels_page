@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {
 	Group,
 	Flex,
@@ -10,19 +10,13 @@ import {
 	rem,
 	ActionIcon,
 	Avatar,
-	Indicator,
 } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-import { IconBell, IconShoppingCart } from '@tabler/icons-react'
+import { IconBell } from '@tabler/icons-react'
 import classes from './Header.module.css'
-import { Context } from '@/context'
+import { Cart } from './Cart'
 
 const Header = () => {
-	const context = useContext(Context)
-	if (!context) {
-		throw new Error('No context provider')
-	}
-	const cartAmount = context.cartItems <= 99 ? context.cartItems : '99+'
 	// Pretending Fetching...
 	const { data } = (() => {
 		return {
@@ -45,7 +39,6 @@ const Header = () => {
 						onClick={toggleDrawer}
 						hiddenFrom='sm'
 					/>
-
 					{/* Big screen */}
 					<Group h='100%' gap={0} visibleFrom='sm'>
 						<a href='#' className={classes.link}>
@@ -61,6 +54,7 @@ const Header = () => {
 							Сотрудничество
 						</a>
 					</Group>
+					{/* Any Screen */}
 					<Group gap={6}>
 						<ActionIcon
 							variant='transparent'
@@ -70,33 +64,7 @@ const Header = () => {
 						>
 							<IconBell size={26} />
 						</ActionIcon>
-						<Indicator
-							label={cartAmount}
-							radius='12px'
-							disabled={!cartAmount}
-							size={22}
-							offset={12}
-							color='var(--primary-yellow)'
-							styles={{
-								indicator: {
-									padding: '2px',
-									border: '2px solid white',
-									fontWeight: 600,
-									fontSize: '12px',
-									lineHeight: '16px',
-									color: 'black',
-								},
-							}}
-						>
-							<ActionIcon
-								variant='transparent'
-								color='black'
-								aria-label='Показать корзину'
-								size='xl'
-							>
-								<IconShoppingCart size={26} />
-							</ActionIcon>
-						</Indicator>
+						<Cart />
 						<a className={classes.avatar} href='#' aria-label='Открыть профиль'>
 							<Avatar
 								size={42}

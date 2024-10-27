@@ -17,19 +17,13 @@ export const Rating = ({
 	return (
 		<Flex justify='space-between' fw={600} fz='14px' lh='14px'>
 			{hotelStars ? (
-				<Flex
-					p={4}
-					gap={4}
-					align='center'
-					fw={600}
-					fz='12px'
-					lh='12px'
-					className={classes.gray_bg}
-				>
+				<Flex p={4} gap={4} align='center' className={classes.gray_bg}>
 					{Array.from({ length: hotelStars }, (_value, index) => (
 						<IconStarFilled size={12} color='black' key={index} />
 					))}
-					Отель
+					<Text fw={600} fz='12px' lh='12px'>
+						Отель
+					</Text>
 				</Flex>
 			) : (
 				<Flex align='center'>

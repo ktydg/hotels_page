@@ -5,7 +5,9 @@ import { CardList } from './CardList'
 import { Sort } from './Sort'
 
 const Market = () => {
-	const [value, setValue] = useState<ComboboxItem | null>(null)
+	const [sort, setSort] = useState<ComboboxItem | null>(null)
+	const [filter, setFilter] = useState<string>('')
+
 	const sortData = useMemo(
 		() => [
 			{ value: 'rating', label: 'по рейтингу' },
@@ -19,14 +21,14 @@ const Market = () => {
 	)
 
 	return (
-		<main>
+		<main style={{ marginBottom: '100px' }}>
 			<Flex direction='column' gap={24}>
 				<Title size={40} order={1}>
 					Онлайн-маркет
 				</Title>
-				<Filter />
-				<Sort value={value} setValue={setValue} data={sortData} />
-				<CardList />
+				<Filter setFilter={setFilter} />
+				<Sort value={sort} setValue={setSort} data={sortData} />
+				<CardList sort={sort} filter={filter} />
 			</Flex>
 		</main>
 	)

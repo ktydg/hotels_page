@@ -18,3 +18,9 @@ export interface ICard {
   }
   price: string;
 }
+
+export interface CartList {
+  id: string;
+  placeName: string;
+  price: string;
+}
