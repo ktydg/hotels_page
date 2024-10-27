@@ -1,0 +1,4 @@
+:root {
+	--max-width: calc(1268px + 32px);
+	--primary-yellow: rgba(252, 206, 71, 1);
+}

@@ -1,22 +1,26 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useState } from 'react'
+import { ContentLayout } from '@/components/ContentLayout'
+import Footer from '@/components/Footer'
+import { Context } from '@/context'
 
-const Header = lazy(() => import('./components/Header'))
-const Market = lazy(() => import('./components/Market'))
-const Footer = lazy(() => import('./components/Footer'))
+const Header = lazy(() => import('@/components/Header'))
+const Market = lazy(() => import('@/components/Market'))
 
 function App() {
+	const [cartItems, setCartItems] = useState(localStorage.length)
+
 	return (
-		<>
-			<Suspense fallback={null}>
-				<Header />
-			</Suspense>
-			<Suspense>
-				<Market />
-			</Suspense>
-			<Suspense fallback={null}>
-				<Footer />
-			</Suspense>
-		</>
+		<Context.Provider value={{ cartItems, setCartItems }}>
+			<ContentLayout>
+				<Suspense fallback={null}>
+					<Header />
+				</Suspense>
+				<Suspense>
+					<Market />
+				</Suspense>
+			</ContentLayout>
+			<Footer />
+		</Context.Provider>
 	)
 }
 

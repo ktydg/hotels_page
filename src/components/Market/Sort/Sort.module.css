@@ -1,0 +1,5 @@
+.selector {
+::placeholder {
+		color: rgba(107, 107, 107, 1);
+	}
+}

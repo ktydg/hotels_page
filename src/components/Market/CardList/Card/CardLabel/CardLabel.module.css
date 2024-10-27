@@ -1,0 +1,11 @@
+.card_label {
+	font-weight: 600;
+	font-size: 12px;
+	line-height: 16px;
+	height: 24px;
+	position: absolute;
+	left: 28px;
+	top: 28px;
+	padding: 4px 12px;
+	border-radius: 12px;
+}
